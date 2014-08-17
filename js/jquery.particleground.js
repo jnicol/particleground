@@ -38,6 +38,7 @@
   function Plugin(element, options) {
     var el = element;
     var $el = $(element);
+    var canvasSupport = !!document.createElement('canvas').getContext;
     var canvas;
     var ctx;
     var particles = [];
@@ -59,6 +60,8 @@
      * Init
      */
     function init() {
+      if (!canvasSupport) { return; }
+
       //Create canvas
       $canvas = $('<canvas class="pg-canvas"></canvas>');
       $el.prepend($canvas);
@@ -105,6 +108,8 @@
      * Draw particles 
      */
     function draw() {
+      if (!canvasSupport) { return; }
+
       winW = $(window).width();
       winH = $(window).height();
 
