@@ -1,7 +1,7 @@
 Particleground
 ==============
 
-A jQuery plugin for elegant background particle systems. Includes an optional parallax effect controlled by the mouse on desktop devices and gyroscope on mobile devices.
+A jQuery plugin for snazzy background particle systems. Includes an optional parallax effect controlled by the mouse on desktop devices and gyroscope on mobile devices.
 
 ## Usage
 
@@ -13,29 +13,129 @@ Options can be overridden by passing an options object to the constructor.
 
 Here is an example of setting the color of the particle system dots and lines:
 
-    $('#your-element').particleground({
+    $('#your-element').particleground({http://requestlab.fr/
         dotColor: '#ff0000',
         lineColor: '#ff0000'
     });
 
 Here is a full list of options, and their default values:
 
-    width: window.screen.width, // Wide enough to fill viewport @ 100% screen width
-    height: window.screen.height, // Tall enough to fill viewport @ 100% screen height
-    minSpeedX: 0.1,
-    maxSpeedX: 0.7,
-    minSpeedY: 0.1,
-    maxSpeedY: 0.7,
-    directionX: 'center', // 'center', left' or 'right. 'center' = dots bounce off edges
-    directionY: 'center', // 'center', up' or 'down. 'center' = dots bounce off edges
-    density: 10000,
-    dotColor: '#666666',
-    lineColor: '#666666',
-    particleRadius: 7, // Dot size
-    lineWidth: 1,
-    curvedLines: false,
-    proximity: 100, // How close two dots need to be before they join
-    parallax: true,
-    parallaxMultiplier: 5, // The lower the number, the greater the parallax effect
-    onInit: function() {},
-    onDestroy: function() {}
+### width
+
+    window.screen.width
+
+By default the canvas is wide enough to fill viewport at 100% screen width.
+
+### height
+
+    window.screen.height
+
+By default the canvas is tall enough to fill viewport at 100% screen height.
+
+### minSpeedX
+
+    0.1
+
+### maxSpeedX
+
+    0.7
+
+### minSpeedY
+
+    0.1
+
+### maxSpeedY
+
+    0.7
+
+### directionX
+
+    'center'
+
+Can be one of 'center', left' or 'right. 'center' means that the dots will bounce off the edges of the canvas.
+
+### directionY
+
+    'center'
+
+Can be one of 'center', up' or 'down'. 'center' means that the dots will bounce off the edges of the canvas.
+
+### density
+
+    10000
+
+Determines how many particles will be generated: one particle every n pixels.
+
+### dotColor
+
+    '#666666'
+
+### lineColor
+
+    '#666666'
+
+### particleRadius
+
+    7
+
+Dot size
+
+### lineWidth
+
+    1
+
+### curvedLines
+
+    false
+
+### proximity
+
+    100
+
+How close two dots need to be, in pixels, before they join
+
+### parallax
+
+    true
+
+### parallaxMultiplier
+
+    5
+
+The lower the number, the greater the parallax effect.
+
+### onInit
+
+    function() {}
+
+A callback executed after Particleground initializes.
+
+### onDestroy
+
+    function() {}
+
+A callback executed after Particleground is destroyed.
+
+## Methods
+
+### pause
+
+Pauses the particle system.
+
+    $('#your-element').particlegound('pause');
+
+### start
+
+Restarts the particle system if you previously paused it.
+
+    $('#your-element').particlegound('start');
+
+### destroy
+
+Removes the plugin from your element.
+
+    $('#your-element').particlegound('destroy');
+
+## Credits
+
+Particleground was inspired by http://requestlab.fr/ and http://disruptivebydesign.com/ 
