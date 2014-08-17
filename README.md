@@ -13,7 +13,7 @@ Options can be overridden by passing an options object to the constructor.
 
 Here is an example of setting the color of the particle system dots and lines:
 
-    $('#your-element').particleground({http://requestlab.fr/
+    $('#your-element').particleground({
         dotColor: '#ff0000',
         lineColor: '#ff0000'
     });
