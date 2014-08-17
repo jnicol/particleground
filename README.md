@@ -3,13 +3,15 @@ Particleground
 
 A jQuery plugin for snazzy background particle systems. Includes an optional parallax effect controlled by the mouse on desktop devices and gyroscope on mobile devices.
 
+[See a demo](https://jnicol.github.io/particleground)
+
 ## Usage
 
     $('#your-element').particleground();
 
 ## Options
 
-Options can be overridden by passing an options object to the constructor.
+Options can be set by passing an options object to the constructor.
 
 Here is an example of setting the color of the particle system dots and lines:
 
@@ -24,13 +26,13 @@ Here is a full list of options, and their default values:
 
     window.screen.width
 
-By default the canvas is wide enough to fill viewport at 100% screen width.
+By default the canvas is wide enough to fill viewport when it is 100% screen wide.
 
 ### height
 
     window.screen.height
 
-By default the canvas is tall enough to fill viewport at 100% screen height.
+By default the canvas is tall enough to fill viewport when it is 100% screen high.
 
 ### minSpeedX
 
@@ -52,13 +54,13 @@ By default the canvas is tall enough to fill viewport at 100% screen height.
 
     'center'
 
-Can be one of 'center', left' or 'right. 'center' means that the dots will bounce off the edges of the canvas.
+Can be one of `'center'`, `'left' or `'right'`. `'center'` means that the dots will bounce off the edges of the canvas.
 
 ### directionY
 
     'center'
 
-Can be one of 'center', up' or 'down'. 'center' means that the dots will bounce off the edges of the canvas.
+Can be one of `'center'`, `'up'` or `'down'`. `'center'` means that the dots will bounce off the edges of the canvas.
 
 ### density
 
@@ -92,7 +94,7 @@ Dot size
 
     100
 
-How close two dots need to be, in pixels, before they join
+How close two dots need to be, in pixels, before they join.
 
 ### parallax
 
@@ -102,7 +104,7 @@ How close two dots need to be, in pixels, before they join
 
     5
 
-The lower the number, the greater the parallax effect.
+The lower the number, the more extreme the parallax effect wil be.
 
 ### onInit
 
