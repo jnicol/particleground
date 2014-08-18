@@ -22,18 +22,6 @@ Here is an example of setting the color of the particle system dots and lines:
 
 Here is a full list of options, and their default values:
 
-### width
-
-    window.screen.width
-
-By default the canvas is wide enough to fill viewport when it is 100% screen wide.
-
-### height
-
-    window.screen.height
-
-By default the canvas is tall enough to fill viewport when it is 100% screen high.
-
 ### minSpeedX
 
     0.1
