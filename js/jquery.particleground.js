@@ -2,7 +2,7 @@
  * Particleground
  *
  * @author Jonathan Nicol - @mrjnicol
- * @version 1.0
+ * @version 1.0.1
  * @description Creates a canvas based particle system background
  *
  * Inspired by:
@@ -42,7 +42,6 @@
     var canvas;
     var ctx;
     var particles = [];
-    var numParticles;
     var raf;
     var mouseX = 0;
     var mouseY = 0;
@@ -67,23 +66,18 @@
       $el.prepend($canvas);
       canvas = $canvas[0];
       ctx = canvas.getContext('2d');
-
-      // Style canvas
-      canvas.width = options.width;
-      canvas.height = options.height;
-      ctx.fillStyle = options.dotColor;
-      ctx.strokeStyle = options.lineColor;
-      ctx.lineWidth = options.lineWidth;
+      styleCanvas();
 
       // Create particles
-      numParticles = Math.round((canvas.width * canvas.height) / options.density);
+      var numParticles = Math.round((canvas.width * canvas.height) / options.density);
       for (var i = 0; i < numParticles; i++) {
-        var p = new Particle(i);
+        var p = new Particle();
+        p.setStackPos(i);
         particles.push(p);
       };
 
       $(window).on('resize', function() {
-        setActiveStates();
+        resizeHandler();
       });
 
       $(document).on('mousemove', function(e) {
@@ -99,9 +93,19 @@
         }, true);
       }
 
-      setActiveStates();
       draw();
       hook('onInit');
+    }
+
+    /**
+     * Style the canvas
+     */
+    function styleCanvas() {
+      canvas.width = $el.width();;
+      canvas.height = $el.height();;
+      ctx.fillStyle = options.dotColor;
+      ctx.strokeStyle = options.lineColor;
+      ctx.lineWidth = options.lineWidth;
     }
 
     /**
@@ -117,16 +121,12 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Update particle positions
-      for (var i = 0; i < numParticles; i++) {
-        if (particles[i].getActive()) {
-          particles[i].updatePosition();
-        }
+      for (var i = 0; i < particles.length; i++) {
+        particles[i].updatePosition();
       };
       // Draw particles
-      for (var i = 0; i < numParticles; i++) {
-        if (particles[i].getActive()) {
-          particles[i].draw();
-        }
+      for (var i = 0; i < particles.length; i++) {
+        particles[i].draw();
       };
 
       // Call this function next time screen is redrawn
@@ -136,15 +136,33 @@
     }
 
     /**
-     * Deactivate particles that are outside the container element 
+     * Add/remove particles.
      */
-    function setActiveStates() {
-      for (var i = 0; i < numParticles; i++) {
-        if (particles[i].position.x < $el.width() || particles[i].position.y < $el.height()) {
-          particles[i].setActive(true);
-        } else {
-          particles[i].setActive(false);
+    function resizeHandler() {
+      // Resize the canvas
+      styleCanvas();
+
+      // Remove particles that are outside the canvas
+      for (i = particles.length - 1; i >= 0; i--) {
+        if (particles[i].position.x > $el.width() || particles[i].position.y > $el.height()) {
+          particles.splice(i, 1);
         }
+      };
+
+      // Adjust partivcle density
+      var numParticles = Math.round((canvas.width * canvas.height) / options.density);
+      if (numParticles > particles.length) {
+        while (numParticles > particles.length) {
+          var p = new Particle();
+          particles.push(p);
+        }
+      } else if (numParticles < particles.length) {
+        particles.splice(numParticles);
+      }
+
+      // Re-index particles
+      for (i = particles.length - 1; i >= 0; i--) {
+        particles[i].setStackPos(i);
       };
     }
 
@@ -166,8 +184,8 @@
     /**
      * Particle 
      */
-    function Particle(stackPos) {
-      this.stackPos = stackPos;
+    function Particle() {
+      this.stackPos;
       this.active = true;
       this.layer = Math.ceil(Math.random() * 3);
       this.parallaxOffsetX = 0;
@@ -218,7 +236,7 @@
       // Draw lines
       ctx.beginPath();
       // Iterate over all particles which are higher in the stack than this one
-      for (var i = numParticles - 1; i > this.stackPos; i--) {
+      for (var i = particles.length - 1; i > this.stackPos; i--) {
         var p2 = particles[i];
 
         // Pythagorus theorum to get distance between two points
@@ -227,7 +245,7 @@
         var dist = Math.sqrt((a * a) + (b * b)).toFixed(2);
 
         // If the two particles are in proximity, join them
-        if (dist < options.proximity && p2.getActive()) {
+        if (dist < options.proximity) {
           ctx.moveTo(this.position.x + this.parallaxOffsetX, this.position.y + this.parallaxOffsetY);
           if (options.curvedLines) {
             ctx.quadraticCurveTo(Math.max(p2.position.x, p2.position.x), Math.min(p2.position.y, p2.position.y), p2.position.x + p2.parallaxOffsetX, p2.position.y + p2.parallaxOffsetY);
@@ -307,17 +325,10 @@
     }
 
     /**
-     * Getter: particle active state
+     * Setter: particle stacking position
      */
-    Particle.prototype.getActive = function() {
-      return this.active;
-    }
-
-    /**
-     * Setter: particle active state
-     */
-    Particle.prototype.setActive = function(state) {
-      this.active = state;
+    Particle.prototype.setStackPos = function(i) {
+      this.stackPos = i;
     }
 
     function option (key, val) {
@@ -375,8 +386,6 @@
   };
 
   $.fn[pluginName].defaults = {
-    width: window.screen.width, // Wide enough to fill viewport @ 100% screen width
-    height: window.screen.height, // Tall enough to fill viewport @ 100% screen height
     minSpeedX: 0.1,
     maxSpeedX: 0.7,
     minSpeedY: 0.1,
