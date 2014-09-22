@@ -54,6 +54,8 @@
     return out;
   };
 
+  var $ = window.jQuery;
+
 
   function Plugin(element, options) {
     var canvasSupport = !!document.createElement('canvas').getContext;
@@ -166,7 +168,7 @@
       var elHeight = element.offsetHeight;
 
       // Remove particles that are outside the canvas
-      for (i = particles.length - 1; i >= 0; i--) {
+      for (var i = particles.length - 1; i >= 0; i--) {
         if (particles[i].position.x > elWidth || particles[i].position.y > elHeight) {
           particles.splice(i, 1);
         }
@@ -368,6 +370,9 @@
     function destroy() {
       canvas.parentNode.removeChild(canvas);
       hook('onDestroy');
+      if ($) {
+        $(element).removeData('plugin_' + pluginName);
+      }
     }
 
     function hook(hookName) {
@@ -409,6 +414,33 @@
     onInit: function() {},
     onDestroy: function() {}
   };
+
+  // nothing wrong with hooking into jQuery if it's there...
+  if ($) {
+    $.fn[pluginName] = function(options) {
+      if (typeof arguments[0] === 'string') {
+        var methodName = arguments[0];
+        var args = Array.prototype.slice.call(arguments, 1);
+        var returnVal;
+        this.each(function() {
+            if ($.data(this, 'plugin_' + pluginName) && typeof $.data(this, 'plugin_' + pluginName)[methodName] === 'function') {
+              returnVal = $.data(this, 'plugin_' + pluginName)[methodName].apply(this, args);
+            }
+            });
+        if (returnVal !== undefined){
+          return returnVal;
+        } else {
+          return this;
+        }
+      } else if (typeof options === "object" || !options) {
+        return this.each(function() {
+            if (!$.data(this, 'plugin_' + pluginName)) {
+              $.data(this, 'plugin_' + pluginName, new Plugin(this, options));
+            }
+          });
+      }
+    };
+  }
 
 })(window, document);
 
