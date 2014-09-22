@@ -10,6 +10,13 @@ document.addEventListener('DOMContentLoaded', function () {
     lineColor: '#5cbdaa'
   });
 
+  /**
+  $('#particles').particleground({
+    dotColor: '#5cbdaa',
+    lineColor: '#5cbdaa'
+  });
+  */
+
   var intro = document.getElementById('intro');
 
   intro.style.marginTop = - intro.offsetHeight / 2;
