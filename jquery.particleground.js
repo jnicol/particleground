@@ -149,7 +149,7 @@
         }
       };
 
-      // Adjust partivcle density
+      // Adjust particle density
       var numParticles = Math.round((canvas.width * canvas.height) / options.density);
       if (numParticles > particles.length) {
         while (numParticles > particles.length) {
