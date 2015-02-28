@@ -62,7 +62,7 @@
       if (!canvasSupport) { return; }
 
       //Create canvas
-      $canvas = $('<canvas class="pg-canvas"></canvas>');
+      $canvas = $('<canvas class="pg-canvas" style="display:block;"></canvas>');
       $el.prepend($canvas);
       canvas = $canvas[0];
       ctx = canvas.getContext('2d');
@@ -101,8 +101,8 @@
      * Style the canvas
      */
     function styleCanvas() {
-      canvas.width = $el.width();;
-      canvas.height = $el.height();;
+      canvas.width = $el.width();
+      canvas.height = $el.height();
       ctx.fillStyle = options.dotColor;
       ctx.strokeStyle = options.lineColor;
       ctx.lineWidth = options.lineWidth;
