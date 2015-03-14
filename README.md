@@ -53,7 +53,7 @@ Here is a full list of options, and their default values:
 
     'center'
 
-Can be one of `'center'`, `'left' or `'right'`. `'center'` means that the dots will bounce off the edges of the canvas.
+Can be one of `'center'`, `'left'` or `'right'`. `'center'` means that the dots will bounce off the edges of the canvas.
 
 ### directionY
 
