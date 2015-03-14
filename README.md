@@ -1,11 +1,15 @@
 Particleground
 ==============
 
-A jQuery plugin for snazzy background particle systems. Includes an optional parallax effect controlled by the mouse on desktop devices and gyroscope on mobile devices. Works in any browser that supports HTML5 canvas.
+A JavaScript plugin for snazzy background particle systems. Includes an optional parallax effect controlled by the mouse on desktop devices and gyroscope on mobile devices. Works in any browser that supports HTML5 canvas.
 
 [See a demo](https://jnicol.github.io/particleground)
 
 ## Usage
+    
+    particleground(document.getElementById('your-element');
+
+jQuery:
 
     $('#your-element').particleground();
 
@@ -14,6 +18,13 @@ A jQuery plugin for snazzy background particle systems. Includes an optional par
 Options can be set by passing an options object to the constructor.
 
 Here is an example of setting the color of the particle system dots and lines:
+
+    particleground(document.getElementById('your-element'), {
+        dotColor: '#ff0000',
+        lineColor: '#ff0000'
+    });
+
+jQuery:
 
     $('#your-element').particleground({
         dotColor: '#ff0000',
@@ -108,24 +119,31 @@ A callback executed after Particleground is destroyed.
 
 ## Methods
 
-### pause
+Particleground exposes public methods which can be used to interact with your Particleground instance e.g.
 
-Pauses the particle system.
+    var pg = particleground(document.getElementById('your-element');
+    pg.pause(); 
+
+jQuery:
 
     $('#your-element').particlegound('pause');
 
-### start
+### pause()
+
+Pauses the particle system.
+
+### start()
 
 Restarts the particle system if you previously paused it.
 
-    $('#your-element').particlegound('start');
-
-### destroy
+### destroy()
 
 Removes the plugin from your element.
 
-    $('#your-element').particlegound('destroy');
-
 ## Credits
 
-Particleground was inspired by http://requestlab.fr/ and http://disruptivebydesign.com/ 
+Particleground was inspired by http://requestlab.fr/ and http://disruptivebydesign.com/
+
+## Contributors
+
+Horia Dragomir: Removed jQuery dependency and improved rendering performance
