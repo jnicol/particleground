@@ -48,6 +48,8 @@
     var mouseY = 0;
     var winW;
     var winH;
+    var elW;
+    var elH;
     var desktop = !navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|BB10|mobi|tablet|opera mini|nexus 7)/i);
     var orientationSupport = !!window.DeviceOrientationEvent;
     var tiltX = 0;
@@ -75,7 +77,7 @@
       styleCanvas();
 
       // Create particles
-      var numParticles = Math.round((canvas.width * canvas.height) / options.density);
+      var numParticles = Math.round((elW * elH) / options.density);
       for (var i = 0; i < numParticles; i++) {
         var p = new Particle();
         p.setStackPos(i);
@@ -107,8 +109,26 @@
      * Style the canvas
      */
     function styleCanvas() {
-      canvas.width = element.offsetWidth;
-      canvas.height = element.offsetHeight;
+      elW = element.offsetWidth;
+      elH = element.offsetHeight;
+
+      var devicePixelRatio = window.devicePixelRatio || 1;
+      var backingStoreRatio = ctx.webkitBackingStorePixelRatio ||
+        ctx.mozBackingStorePixelRatio ||
+        ctx.msBackingStorePixelRatio ||
+        ctx.oBackingStorePixelRatio ||
+        ctx.backingStorePixelRatio || 1;
+
+      var ratio = devicePixelRatio / backingStoreRatio;
+
+      canvas.width = elW * ratio;
+      canvas.height = elH * ratio;
+
+      canvas.style.width = elW + 'px';
+      canvas.style.height = elH + 'px';
+
+      ctx.scale(ratio, ratio);
+
       ctx.fillStyle = options.dotColor;
       ctx.strokeStyle = options.lineColor;
       ctx.lineWidth = options.lineWidth;
@@ -151,18 +171,15 @@
       // Resize the canvas
       styleCanvas();
 
-      var elWidth = element.offsetWidth;
-      var elHeight = element.offsetHeight;
-
       // Remove particles that are outside the canvas
       for (var i = particles.length - 1; i >= 0; i--) {
-        if (particles[i].position.x > elWidth || particles[i].position.y > elHeight) {
+        if (particles[i].position.x > elW || particles[i].position.y > elH) {
           particles.splice(i, 1);
         }
       }
 
       // Adjust particle density
-      var numParticles = Math.round((canvas.width * canvas.height) / options.density);
+      var numParticles = Math.round((elW * elH) / options.density);
       if (numParticles > particles.length) {
         while (numParticles > particles.length) {
           var p = new Particle();
@@ -205,9 +222,10 @@
 
       // Initial particle position
       this.position = {
-        x: Math.ceil(Math.random() * canvas.width),
-        y: Math.ceil(Math.random() * canvas.height)
-      }
+        x: Math.ceil(Math.random() * elW),
+        y: Math.ceil(Math.random() * elH)
+      };
+
       // Random particle speed, within min and max values
       this.speed = {};
 
@@ -302,25 +320,22 @@
         this.parallaxOffsetY += (this.parallaxTargY - this.parallaxOffsetY) / 10; // Easing equation
       }
 
-      var elWidth = element.offsetWidth;
-      var elHeight = element.offsetHeight;
-
       switch (options.directionX) {
         case 'left':
           if (this.position.x + this.speed.x + this.parallaxOffsetX < 0) {
-            this.position.x = elWidth - this.parallaxOffsetX;
+            this.position.x = elW - this.parallaxOffsetX;
           }
           break;
 
         case 'right':
-          if (this.position.x + this.speed.x + this.parallaxOffsetX > elWidth) {
+          if (this.position.x + this.speed.x + this.parallaxOffsetX > elW) {
             this.position.x = 0 - this.parallaxOffsetX;
           }
           break;
 
         default:
           // If particle has reached edge of canvas, reverse its direction
-          if (this.position.x + this.speed.x + this.parallaxOffsetX > elWidth || this.position.x + this.speed.x + this.parallaxOffsetX < 0) {
+          if (this.position.x + this.speed.x + this.parallaxOffsetX > elW || this.position.x + this.speed.x + this.parallaxOffsetX < 0) {
             this.speed.x = -this.speed.x;
           }
           break;
@@ -329,19 +344,19 @@
       switch (options.directionY) {
         case 'up':
           if (this.position.y + this.speed.y + this.parallaxOffsetY < 0) {
-            this.position.y = elHeight - this.parallaxOffsetY;
+            this.position.y = elH - this.parallaxOffsetY;
           }
           break;
 
         case 'down':
-          if (this.position.y + this.speed.y + this.parallaxOffsetY > elHeight) {
+          if (this.position.y + this.speed.y + this.parallaxOffsetY > elH) {
             this.position.y = 0 - this.parallaxOffsetY;
           }
           break;
 
         default:
           // If particle has reached edge of canvas, reverse its direction
-          if (this.position.y + this.speed.y + this.parallaxOffsetY > elHeight || this.position.y + this.speed.y + this.parallaxOffsetY < 0) {
+          if (this.position.y + this.speed.y + this.parallaxOffsetY > elH || this.position.y + this.speed.y + this.parallaxOffsetY < 0) {
             this.speed.y = -this.speed.y;
           }
           break;
