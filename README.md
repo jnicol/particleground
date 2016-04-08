@@ -7,7 +7,7 @@ A JavaScript plugin for snazzy background particle systems. Includes an optional
 
 ## Usage
     
-    particleground(document.getElementById('your-element');
+    particleground(document.getElementById('your-element'));
 
 jQuery:
 
