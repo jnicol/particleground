@@ -109,7 +109,7 @@ The lower the number, the more extreme the parallax effect will be.
 
     false
     
-Overwrites `strokeColor` - Randomises the stroke colours of the particles, picking a random greyscale color between `strokeColorMin` and `strokeColorMax`, where `0 = #000` and `15 = #EEE`.
+Overwrites `strokeColor` - Randomises the stroke colours of the particles, picking a random greyscale color between `strokeColorMin` and `strokeColorMax`, where `0 = #000` and `15 = #FFF`.
 
 ## strokeColorMin
 
@@ -119,7 +119,7 @@ Defines the minimum color selectable by the random color picker. Range 0-15.
 
 ## strokeColorMax
 
-    15
+    14
    
 Defines the maximum color selectable by the random color picker. Range 0-15.
 ### onInit
