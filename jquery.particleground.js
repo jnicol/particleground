@@ -95,6 +95,15 @@
       hook('onInit');
     }
 
+	/**
+		Get a random color from #000 - #EEE (0-15)
+	**/
+	function getRandColor(min,max) {
+		var t = ['#000','#111','#222','#333','#444','#555','#666','#777','#888','#999','#AAA','#BBB','#CCC','#DDD','#EEE'];
+		var c = Math.floor((Math.random() * max) + min);
+		return t[c];
+	}
+	
     /**
      * Style the canvas
      */
@@ -186,6 +195,11 @@
      * Particle
      */
     function Particle() {
+	  if (options.randomStrokeColor) {
+	    this.strokeColor = getRandColor(options.strokeColorMin,options.strokeColorMax);
+	  } else {
+		this.strokeColor = options.strokeColor;
+	  }
       this.stackPos;
       this.active = true;
       this.layer = Math.ceil(Math.random() * 3);
@@ -255,6 +269,7 @@
           }
         }
       }
+	  ctx.strokeStyle = this.strokeColor;
       ctx.stroke();
       ctx.closePath();
     }
@@ -388,6 +403,9 @@
     proximity: 100, // How close two dots need to be before they join
     parallax: true,
     parallaxMultiplier: 5, // The lower the number, the more extreme the parallax effect
+	randomStrokeColor: false, // True to enable random greyscale colors for strokes
+	strokeColorMin: 0,
+	strokeColorMax: 15,
     onInit: function() {},
     onDestroy: function() {}
   };
