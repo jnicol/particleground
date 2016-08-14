@@ -96,10 +96,10 @@
     }
 
 	/**
-		Get a random color from #000 - #EEE (0-15)
+		Get a random color from #000 - #FFF (0-15)
 	**/
 	function getRandColor(min,max) {
-		var t = ['#000','#111','#222','#333','#444','#555','#666','#777','#888','#999','#AAA','#BBB','#CCC','#DDD','#EEE'];
+		var t = ['#000','#111','#222','#333','#444','#555','#666','#777','#888','#999','#AAA','#BBB','#CCC','#DDD','#EEE','#FFF'];
 		var c = Math.floor((Math.random() * max) + min);
 		return t[c];
 	}
