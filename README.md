@@ -119,9 +119,10 @@ Defines the minimum color selectable by the random color picker. Range 0-15.
 
 ## strokeColorMax
 
-    14
+    15
    
 Defines the maximum color selectable by the random color picker. Range 0-15.
+
 ### onInit
 
     function() {}
