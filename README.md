@@ -1,4 +1,4 @@
-**IMPORTANT** This repository is no longer maintained. If anyone wants to continue work on Particleground I recommend creating your own fork. Thanks to those who contrinuted to this project.
+**IMPORTANT** This repository is no longer maintained. If anyone wants to continue work on Particleground I recommend creating your own fork. Thanks to those who contributed to this project.
 
 <hr>
 
