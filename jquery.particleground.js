@@ -19,12 +19,7 @@
       var obj = arguments[i];
       if (!obj) continue;
       for (var key in obj) {
-        if (obj.hasOwnProperty(key)) {
-          if (typeof obj[key] === 'object')
-            deepExtend(out[key], obj[key]);
-          else
-            out[key] = obj[key];
-        }
+        out[key] = obj[key];
       }
     }
     return out;
@@ -191,6 +186,7 @@
       this.layer = Math.ceil(Math.random() * 3);
       this.parallaxOffsetX = 0;
       this.parallaxOffsetY = 0;
+      this.multicolor = options.multicolor[Math.floor(Math.random()*options.multicolor.length + 1)];
       // Initial particle position
       this.position = {
         x: Math.ceil(Math.random() * canvas.width),
@@ -232,6 +228,9 @@
       ctx.beginPath();
       ctx.arc(this.position.x + this.parallaxOffsetX, this.position.y + this.parallaxOffsetY, options.particleRadius / 2, 0, Math.PI * 2, true);
       ctx.closePath();
+      if (this.multicolor) {
+        ctx.fillStyle = this.multicolor;
+      }
       ctx.fill();
 
       // Draw lines

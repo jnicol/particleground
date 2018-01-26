@@ -1,9 +1,7 @@
-**IMPORTANT** This repository is no longer maintained. If anyone wants to continue work on Particleground I recommend creating your own fork. Thanks to those who contrinuted to this project.
-
-<hr>
-
-Particleground
+Particleground: Modified for Multicolor Particles
 ==============
+
+(Original version by [jnicol](https://github.com/jnicol/particleground))
 
 A JavaScript plugin for snazzy background particle systems. Includes an optional parallax effect controlled by the mouse on desktop devices and gyroscope on mobile devices. Works in any browser that supports HTML5 canvas.
 
@@ -36,6 +34,10 @@ jQuery:
     });
 
 Here is a full list of options, and their default values:
+
+### multicolor
+
+No default value. Setting this to an array of colors overrides `dotColor`.
 
 ### minSpeedX
 
