@@ -1,8 +1,6 @@
 Particleground: Modified for Multicolor Particles
 ==============
 
-(Original version by [jnicol](https://github.com/jnicol/particleground))
-
 A JavaScript plugin for snazzy background particle systems. Includes an optional parallax effect controlled by the mouse on desktop devices and gyroscope on mobile devices. Works in any browser that supports HTML5 canvas.
 
 [See a demo](https://jnicol.github.io/particleground)
