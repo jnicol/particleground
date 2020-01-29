@@ -138,6 +138,15 @@
      */
     function resizeHandler() {
       // Resize the canvas
+
+      destroy();
+      //Create canvas
+      canvas = document.createElement('canvas');
+      canvas.className = 'pg-canvas';
+      canvas.style.display = 'block';
+      element.insertBefore(canvas, element.firstChild);
+      ctx = canvas.getContext('2d');
+
       styleCanvas();
 
       var elWidth = element.offsetWidth;
@@ -345,6 +354,7 @@
 
     function destroy() {
       console.log('destroy');
+      particles = [];
       canvas.parentNode.removeChild(canvas);
       hook('onDestroy');
       if ($) {
