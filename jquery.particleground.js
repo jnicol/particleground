@@ -344,7 +344,8 @@
     }
 
     function destroy() {
-      console.log('destroy');
+      pause();
+      particles = [];
       canvas.parentNode.removeChild(canvas);
       hook('onDestroy');
       if ($) {
