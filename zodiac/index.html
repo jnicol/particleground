@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <title>Zodiac</title>
+   <style>
+      html,
+      body {
+         width: 100%;
+         height: 100%;
+         padding: 0;
+         margin: 0;
+         background-color: #111;
+         overflow: hidden;
+      }
+
+      #zodiac {
+         width: 100%;
+         height: 100%;
+      }
+   </style>
+</head>
+<body>
+   <canvas id="zodiac"></canvas>
+   <script src="script/zodiac.min.js"></script>
+   <script>
+
+      document.addEventListener('DOMContentLoaded', function () {
+
+         new Zodiac('zodiac', {       // HTMLCanvasElement or id
+            direction: [0, -1],             // [dirX (-1:left,0:random,1:right),dirX (-1:up,0:random,1:down)]
+            velocity: [[.1, .2], [.5, 1]], // [[velXmin,velXmax],[velYmin,velYmax]]
+            bounce: [false, true],          //[bounceTopBottom,bounceLeftRight]
+            parallax: .2,                   // float [0-1...]; 0 no paralax; 1 move one vw
+            density: 6000,                  // px^2
+            proximity: 50,                  // px
+            dotRadius: [1, 5],              // float or [float(min),float(max)]
+            //dotColor: '#aaa',
+            lineColor: '#666',
+            lineWidth: 2,
+            //backgroundColor: 'rgba(20,20,20,.3)', // default transparent; use alpha value for motion blur and ghosting
+         });
+
+      }, false);
+
+   </script>
+</body>
+</html>
