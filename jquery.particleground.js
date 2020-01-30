@@ -51,6 +51,7 @@
     var paused = false;
 
     options = extend({}, window[pluginName].defaults, options);
+    var proximityS2 = options.proximity * options.proximity;
 
     /**
      * Init
@@ -243,10 +244,10 @@
         // Pythagorus theorum to get distance between two points
         var a = this.position.x - p2.position.x
         var b = this.position.y - p2.position.y
-        var dist = Math.sqrt((a * a) + (b * b)).toFixed(2);
+        var distS2 = (a * a) + (b * b);
 
         // If the two particles are in proximity, join them
-        if (dist < options.proximity) {
+        if (distS2 < proximityS2) {
           ctx.moveTo(this.position.x + this.parallaxOffsetX, this.position.y + this.parallaxOffsetY);
           if (options.curvedLines) {
             ctx.quadraticCurveTo(Math.max(p2.position.x, p2.position.x), Math.min(p2.position.y, p2.position.y), p2.position.x + p2.parallaxOffsetX, p2.position.y + p2.parallaxOffsetY);
