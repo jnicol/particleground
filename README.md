@@ -107,7 +107,25 @@ How close two dots need to be, in pixels, before they join.
 
     5
 
-The lower the number, the more extreme the parallax effect wil be.
+The lower the number, the more extreme the parallax effect will be.
+
+### randomStrokeColor
+
+    false
+    
+Overwrites `strokeColor` - Randomises the stroke colours of the particles, picking a random greyscale color between `strokeColorMin` and `strokeColorMax`, where `0 = #000` and `15 = #FFF`.
+
+## strokeColorMin
+
+    0
+   
+Defines the minimum color selectable by the random color picker. Range 0-15.
+
+## strokeColorMax
+
+    15
+   
+Defines the maximum color selectable by the random color picker. Range 0-15.
 
 ### onInit
 
