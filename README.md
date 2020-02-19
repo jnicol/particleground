@@ -37,6 +37,10 @@ jQuery:
 
 Here is a full list of options, and their default values:
 
+### multicolor
+
+No default value. Setting this to an array of colors overrides `dotColor`.
+
 ### minSpeedX
 
     0.1
